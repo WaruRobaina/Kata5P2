@@ -1,10 +1,10 @@
-package kata4.view;
+package kata5p2.view;
 
 import org.jfree.ui.ApplicationFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import java.awt.Dimension;
-import kata4.model.Histogram;
+import kata5p2.model.Histogram;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
