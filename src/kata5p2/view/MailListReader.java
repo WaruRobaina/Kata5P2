@@ -1,34 +1,30 @@
 package kata5p2.view;
- import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import kata5p2.model.Mail;
 
 public class MailListReader {
-    public static List<Mail> read(String fileName) throws FileNotFoundException, IOException {
-        List<Mail> lista = new ArrayList<>();
-        String ar ="@";
-        
-        try {
-          FileReader fr = new FileReader (fileName);
-          BufferedReader br = new BufferedReader(fr);
+    public MailListReader(){}
 
-          String linea;
-          while((linea=br.readLine())!=null) {;
-              if(linea.contains(ar)){
-                  lista.add(new Mail(linea));
-              }
-          }
-          br.close();
-          fr.close();
+    public List<String> read(String url, String table) throws IOException{
+        List<String> mails = new ArrayList<>();
+        String sql = "SELECT * FROM " + table;
+        try (Connection conn = DriverManager.getConnection(url); 
+                Statement stmt = conn.createStatement(); 
+                ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()) { 
+                mails.add(rs.getString("mail")); 
+            } 
+        } catch (SQLException e) { 
+            System.out.println(e.getMessage()); 
         }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-            return lista;
-        }
+        return mails;
+    }
     
 }

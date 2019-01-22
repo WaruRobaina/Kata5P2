@@ -1,16 +1,16 @@
 package kata5p2.model;
 
 public class Mail {
-        private String mail;
-
-    public Mail(String linea) {
-        this.mail = linea;
+    public Mail(String mail) {
+        this.mail = mail;
     }
-       
+     public String getMail() {
+        return mail;
+    }
     public String getDomain(){
-            String[] res = mail.split("@");
-            String dominio=res[1];
-            return dominio;
-        }
+        String [] domain=mail.split("@");
+        return domain[1];
+    }
+     private String mail;
     
 }

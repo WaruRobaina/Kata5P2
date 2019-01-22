@@ -12,33 +12,28 @@ import kata5p2.view.MailListReader;
 public class Kata5P2 {
     
     
-    private List<Mail> mailList;
-    private Histogram<String> histogram;
+    private static List<String> mailList;
+    private static Histogram histogram;
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        Kata5P2 k4 = new Kata5P2();
-        k4.execute();  
-    }
-    
-    public void execute() throws IOException{
         input();
         process();
-        output();
+        output();  
     }
     
-    public void input() throws IOException{
-        String fileName;
-        fileName = "email.txt";
-        mailList = MailListReader.read(fileName);
+    public static void input() throws IOException{
+        MailListReader bd = new MailListReader();
+        mailList = bd.read("jdbc:sqlite:Kata5.db", "email");
     }
     
-    public void process() {
-        histogram = MailHistogramBuilder.build(mailList);
+    public static void process(){
+        MailHistogramBuilder builded = new MailHistogramBuilder();
+        histogram = builded.build(mailList);
+
     }
     
-    public void output(){
-        HistogramDisplay histodisplay = new HistogramDisplay(histogram);
-        histodisplay.execute();
+    public static void output(){
+        new HistogramDisplay(histogram).execute();
     }
     
 }
